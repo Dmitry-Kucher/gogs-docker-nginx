@@ -1,32 +1,43 @@
 version: '2'
 services:
+    webserver:
+      image: nginx
+      restart: always
+      ports:
+        - "80:80"
+      volumes:
+        - "./nginx/nginx-not-secure.conf:/etc/nginx/nginx.conf"
+      networks:
+        - gogs
     postgres:
       image: postgres:9.5
       restart: always
       environment:
-       - "POSTGRES_USER=${POSTGRES_USER}"
-       - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
-       - "POSTGRES_DB=gogs"
+        - "POSTGRES_USER=${POSTGRES_USER}"
+        - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+        - "POSTGRES_DB=gogs"
       volumes:
-       - "db-data:/var/lib/postgresql/data"
+        - "db-data:/var/lib/postgresql/data"
       networks:
-       - gogs
+        - gogs
     gogs:
       image: gogs/gogs:latest
       restart: always
       ports:
-       - "10022:22"
-       - "3000:3000"
+        - "10022:22"
+      expose:
+         - "3000"
       links:
-       - postgres
+        - postgres
       environment:
-       - "RUN_CROND=true"
+        - "RUN_CROND=true"
       networks:
-       - gogs
+        - gogs
       volumes:
-       - "gogs-data:/data"
+        - "gogs-data:/data"
       depends_on:
-       - postgres
+        - postgres
+        - webserver
 
 networks:
     gogs:
