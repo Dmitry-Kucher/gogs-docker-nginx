@@ -1,0 +1,2 @@
+export POSTGRES_USER="gogs"
+export POSTGRES_PASSWORD="g0gs"
