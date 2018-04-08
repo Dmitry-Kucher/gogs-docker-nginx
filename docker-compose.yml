@@ -1,14 +1,5 @@
 version: '2'
 services:
-    webserver:
-      image: nginx
-      restart: always
-      ports:
-        - "80:80"
-      volumes:
-        - "./nginx/nginx-not-secure.conf:/etc/nginx/nginx.conf"
-      networks:
-        - gogs
     postgres:
       image: postgres:9.5
       restart: always
@@ -24,20 +15,16 @@ services:
       image: gogs/gogs:latest
       restart: always
       ports:
-        - "10022:22"
-      expose:
-         - "3000"
+        - "${SSH_PUBLIC_PORT}:22"
+        - "${WEB_PUBLIC_PORT}:3000"
       links:
         - postgres
-      environment:
-        - "RUN_CROND=true"
       networks:
         - gogs
       volumes:
         - "gogs-data:/data"
       depends_on:
         - postgres
-        - webserver
 
 networks:
     gogs:
