@@ -4,7 +4,7 @@ services:
       image: nginx
       restart: always
       ports:
-        - "80:80"
+        - "${NGINX_PUBLIC_PORT}:80"
       volumes:
         - "./nginx/nginx-not-secure.conf:/etc/nginx/nginx.conf"
       networks:
@@ -24,7 +24,7 @@ services:
       image: gogs/gogs:latest
       restart: always
       ports:
-        - "10022:22"
+        - "${SSH_PUBLIC_PORT}:22"
       expose:
          - "3000"
       links:

@@ -1,2 +1,4 @@
 export DEV_MODE=true
 export DOCKER_COMPOSE_FILE="docker-compose.dev.yml"
+export SSH_PUBLIC_PORT="10022"
+export NGINX_PUBLIC_PORT="80"
