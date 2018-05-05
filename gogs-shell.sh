@@ -39,7 +39,7 @@ startgogs() {
 }
 
 stopgogs() {
-    docker-compose stop
+    docker-compose -f ${DOCKER_COMPOSE_FILE} stop
 }
 
 initenvs
@@ -47,7 +47,7 @@ initenvs
 case "$1" in
     start)   startgogs ;;
     stop)    stopgogs ;;
-    restart) stopme; startme ;;
+    restart) stopgogs; startgogs ;;
     *) echo "usage: $0 start|stop|restart" >&2
        exit 1
        ;;
