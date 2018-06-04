@@ -15,8 +15,8 @@ services:
       image: gogs/gogs:latest
       restart: always
       ports:
-        - "${SSH_PUBLIC_PORT}:22"
-        - "${WEB_PUBLIC_PORT}:3000"
+        - "127.0.0.1:${SSH_PUBLIC_PORT}:22"
+        - "127.0.0.1:${WEB_PUBLIC_PORT}:3000"
       links:
         - postgres
       networks:
