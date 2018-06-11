@@ -24,7 +24,7 @@ services:
       networks:
         - gogs
       volumes:
-        - "gogs-data:/data"
+        - "/home/git/gogs:/data"
       depends_on:
         - postgres
 
@@ -34,7 +34,5 @@ networks:
 
 volumes:
     db-data:
-      driver: local
-    gogs-data:
       driver: local
 
