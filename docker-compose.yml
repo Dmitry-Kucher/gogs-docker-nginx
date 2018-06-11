@@ -3,6 +3,8 @@ services:
     postgres:
       image: postgres:9.5
       restart: always
+      ports:
+        - "127.0.0.1:${POSTGRES_PUBLIC_PORT}:5432"
       environment:
         - "POSTGRES_USER=${POSTGRES_USER}"
         - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"

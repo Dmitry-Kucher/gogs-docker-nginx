@@ -1,2 +1,3 @@
 export POSTGRES_USER="gogs"
 export POSTGRES_PASSWORD="g0gs"
+export POSTGRES_PUBLIC_PORT="5432"
