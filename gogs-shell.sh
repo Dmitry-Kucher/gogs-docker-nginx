@@ -42,13 +42,18 @@ stopgogs() {
     docker-compose -f ${DOCKER_COMPOSE_FILE} stop
 }
 
+downgogs() {
+    docker-compose -f ${DOCKER_COMPOSE_FILE} down
+}
+
 initenvs
 
 case "$1" in
     start)   startgogs ;;
     stop)    stopgogs ;;
-    restart) stopgogs; startgogs ;;
-    *) echo "usage: $0 start|stop|restart" >&2
+    down)    downgogs ;;
+    restart) downgogs; startgogs ;;
+    *) echo "usage: $0 start|stop|restart|down" >&2
        exit 1
        ;;
 esac
