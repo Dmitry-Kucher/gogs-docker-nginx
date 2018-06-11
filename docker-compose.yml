@@ -41,9 +41,9 @@ services:
         - gogs
       environment:
         - DRONE_OPEN=true
-        - DRONE_HOST=${DRONE_HOST}
+        - DRONE_HOST=https://drone.lenpro.ru
         - DRONE_GOGS=true
-        - DRONE_GOGS_URL=http://gogs.mycompany.com
+        - DRONE_GOGS_URL=http://gogs.lenpro.ru
         - DRONE_SECRET=${DRONE_SECRET}
 
     drone-agent:
