@@ -37,13 +37,17 @@ services:
       volumes:
         - /var/lib/drone:/var/lib/drone/
       restart: always
+      networks:
+        - gogs
       depends_on:
+        - gogs
+      links:
         - gogs
       environment:
         - DRONE_OPEN=true
         - DRONE_HOST=https://drone.lenpro.ru
         - DRONE_GOGS=true
-        - DRONE_GOGS_URL=http://gogs.lenpro.ru
+        - DRONE_GOGS_URL=gogs
         - DRONE_SECRET=${DRONE_SECRET}
 
     drone-agent:
