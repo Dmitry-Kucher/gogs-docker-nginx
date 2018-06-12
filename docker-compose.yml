@@ -47,7 +47,7 @@ services:
         - DRONE_OPEN=true
         - DRONE_HOST=https://drone.lenpro.ru
         - DRONE_GOGS=true
-        - DRONE_GOGS_URL=gogs
+        - DRONE_GOGS_URL=http://gogs
         - DRONE_SECRET=${DRONE_SECRET}
 
     drone-agent:
