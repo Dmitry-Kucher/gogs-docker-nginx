@@ -1,4 +1,5 @@
-version: '2'
+version: '3'
+
 services:
     postgres:
       image: postgres:9.5
@@ -10,38 +11,28 @@ services:
         - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
         - "POSTGRES_DB=gogs"
       volumes:
-        - "db-data:/var/lib/postgresql/data"
-      networks:
-        - gogs
+        - /var/lib/postgresql/gogs:/var/lib/postgresql/data
+
     gogs:
       image: gogs/gogs:latest
       restart: always
       ports:
         - "127.0.0.1:${SSH_PUBLIC_PORT}:22"
         - "127.0.0.1:${WEB_PUBLIC_PORT}:3000"
-      links:
-        - postgres
-      networks:
-        - gogs
       volumes:
-        - "/home/git/gogs:/data"
+        - /home/git/gogs:/data
       depends_on:
         - postgres
 
     drone-server:
       image: drone/drone:0.8
-
       ports:
         - 3031:8000
         - 9000
       volumes:
         - /var/lib/drone:/var/lib/drone/
       restart: always
-      networks:
-        - gogs
       depends_on:
-        - gogs
-      links:
         - gogs
       environment:
         - DRONE_OPEN=true
@@ -52,7 +43,6 @@ services:
 
     drone-agent:
       image: drone/agent:0.8
-
       restart: always
       depends_on:
         - drone-server
@@ -61,12 +51,3 @@ services:
       environment:
         - DRONE_SERVER=drone-server:9000
         - DRONE_SECRET=${DRONE_SECRET}
-
-networks:
-    gogs:
-      driver: bridge
-
-volumes:
-    db-data:
-      driver: local
-
